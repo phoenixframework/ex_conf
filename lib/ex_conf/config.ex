@@ -11,12 +11,7 @@ defmodule ExConf.Config do
   end
 
   defmacro defdefaults(default_configs) do
-    Enum.reduce default_configs, nil, fn {category, options}, acc ->
-      quote do
-        defconfig unquote(category), unquote(options), __MODULE__
-        unquote(acc)
-      end
-    end
+    config_ast(default_configs)
   end
 
   def config_ast(configs) do
