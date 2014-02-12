@@ -31,8 +31,9 @@ true
 
 ## Environment Based Configuration
 The *base* config module will look for a submodule with Mix.env capitalized
-as its name to know what configuratio module to lookup at runtime. If
-the Mix.env specific config module does not exist, it falls back to base module.
+as its name to know what configuration module to lookup at runtime. If
+the Mix.env specific config module does not exist, it falls back to the base
+module.
 
 ```elixir
 
