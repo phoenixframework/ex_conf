@@ -12,7 +12,7 @@ defmodule MyApp.Config do
   config :session, secret: "secret"
 end
 
-iex> MyApp.config[:domain]
+iex> MyApp.Config.router[:domain]
 "example.dev"
 
 
