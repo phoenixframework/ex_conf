@@ -1,14 +1,23 @@
 # ExConf
 > Simple Elixir Configuration Management
 
-## Simple Example with configuration extension
 
+
+## Features
+- Configuration definitions are *evaluated at runtime*, allowing runtime dependent lookups. (i.e. System.get_env)
+- Configuration modules can extend other configurations for overrides and defaults
+- Evironment based lookup for settings based on current Mix.env
+
+## Simple Example
 ```elixir
 
 defmodule MyApp.Config do
   use ExConf.Config
 
-  config :router, ssl: true, domain: "example.dev"
+  config :router, ssl: true, 
+                  domain: "example.dev",
+                  port: System.get_env("PORT")
+                  
   config :session, secret: "secret"
 end
 
@@ -30,20 +39,24 @@ true
 
 
 ## Environment Based Configuration
-The *base* config module will look for a submodule with Mix.env capitalized
-as its name to know what configuration module to lookup at runtime. If
-the Mix.env specific config module does not exist, it falls back to the base
-module.
 
+First, establish a *base* configuration module that uses `ExConf.Config`.
 ```elixir
-
 defmodule MyApp.Config do
   use ExConf.Config
 
   config :router, ssl: true, domain: "example.dev"
   config :session, secret: "secret"
 end
+```
 
+Next, define "submodules" for each Mix.env you need overrides or additional settings for.
+The *base* config module will look for a "submodule" whos name is `Mix.env` capitalized.
+This allows environment specific lookup at runtime via the `env/0` function on the base module.
+If the Mix.env specific config module does not exist, it falls back to the base module.
+
+Here's what a Dev enviroment config module would look like for `Mix.env == :dev`:
+```elixir
 defmodule MyApp.Config.Dev do
   use MyApp.Config
 
