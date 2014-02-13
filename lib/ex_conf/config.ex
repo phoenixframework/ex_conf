@@ -26,11 +26,11 @@ defmodule ExConf.Config do
   defmacro def__using__ do
     quote do
       defmacro __using__(_opts) do
-        local_defaults = @config
+        unevald_local_defaults = Macro.escape(@config)
 
         quote do
           use ExConf.Config
-          @defaults unquote(local_defaults)
+          @defaults unquote(unevald_local_defaults)
         end
       end
     end
