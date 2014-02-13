@@ -4,7 +4,7 @@
 
 
 ## Features
-- Configuration definitions are *evaluated at runtime*, allowing runtime dependent lookups. (i.e. System.get_env)
+- Configuration definitions are *evaluated at runtime*, but merged/defaulted at compile time, allowing runtime dependent lookups. (i.e. System.get_env)
 - Configuration modules can extend other configurations for overrides and defaults
 - Evironment based lookup for settings based on current Mix.env
 
