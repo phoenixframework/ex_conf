@@ -45,8 +45,8 @@ First, establish a *base* configuration module that uses `ExConf.Config`.
 defmodule MyApp.Config do
   use ExConf.Config
 
-  config :router, ssl: true, domain: "example.dev"
-  config :session, secret: "secret"
+  config :router, ssl: true
+  config :twitter, api_token: System.get_env("API_TOKEN")
 end
 ```
 
@@ -62,7 +62,6 @@ defmodule MyApp.Config.Dev do
 
   config :router, ssl: false
   config :twitter, api_token: "ABC"
-  config :code, reload: true
 end
 
 iex> Mix.env
