@@ -47,9 +47,9 @@ defmodule ExConfTest do
 
   test "extending extended configuration defaults are evaluated at runtime" do
     :ok = System.put_env("EXCONFTEST_PORT", "1234")
-    assert ExtendedExtendedConfig .router[:port] == "1234"
+    assert ExtendedExtendedConfig.router[:port] == "1234"
     :ok = System.put_env("EXCONFTEST_PORT", "4567")
-    assert ExtendedExtendedConfig .router[:port] == "4567"
+    assert ExtendedExtendedConfig.router[:port] == "4567"
   end
 
   test "extending configuration merges defaults and includes all base configs" do
