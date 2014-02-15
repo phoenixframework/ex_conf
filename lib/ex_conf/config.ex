@@ -17,7 +17,7 @@ defmodule ExConf.Config do
   def config_ast(configs) do
     Enum.reduce configs, nil, fn {category, options}, acc ->
       quote do
-        defconfig unquote(category), unquote(options), __MODULE__
+        defconfig unquote(category), unquote(options)
         unquote(acc)
       end
     end
@@ -50,7 +50,7 @@ defmodule ExConf.Config do
     end
   end
 
-  defmacro defconfig(category, options, module) do
+  defmacro defconfig(category, options) do
     quote do
       unless Module.defines?(__MODULE__, {unquote(category), 0}) do
         def unquote(category)() do
