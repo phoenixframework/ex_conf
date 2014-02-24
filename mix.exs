@@ -13,8 +13,6 @@ defmodule ExConf.Mixfile do
   end
 
   defp deps do
-    [
-      {:inflex, github: "nurugger07/inflex"}
-    ]
+    []
   end
 end

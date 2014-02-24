@@ -1,4 +1,5 @@
 defmodule ExConf.Config do
+  alias ExConf.Utils
 
   defmacro __using__(_opts) do
     quote do
@@ -84,7 +85,7 @@ defmodule ExConf.Config do
   returned
   """
   def conf_module_for_env(env, base_module) do
-    conf_mod = Module.concat(base_module, Inflex.capitalize(to_string(env)))
+    conf_mod = Module.concat(base_module, Utils.capitalize(to_string(env)))
     if Code.ensure_loaded? conf_mod do
       conf_mod
     else
