@@ -1,8 +1,13 @@
 defmodule EnvConfTest do
   use ExUnit.Case
 
+  setup_all do
+    :ok = System.put_env("EXCONF_ENV", "test")
+    :ok
+  end
+
   defmodule MyApp.Config do
-    use ExConf.Config
+    use ExConf.Config, env_var: "EXCONF_ENV"
 
     config :router, ssl: true, domain: "example.dev"
     config :session, secret: "secret"
@@ -17,7 +22,7 @@ defmodule EnvConfTest do
   end
 
   defmodule MyOtherApp.Config do
-    use ExConf.Config
+    use ExConf.Config, env_var: "EXCONF_ENV"
 
     config :router, ssl: true, domain: "other.dev"
   end

@@ -1,10 +1,15 @@
 defmodule ExConf.Config do
   alias ExConf.Utils
 
-  defmacro __using__(_opts) do
+  defmacro __using__(opts) do
+    env_var = Keyword.get(opts, :env_var) || raise ArgumentError, message: """
+    Missing required :env_var option
+    """
+
     quote do
       Module.register_attribute __MODULE__, :config, accumulate: true,
                                                      persist: false
+      @env_var unquote(env_var)
       @defaults []
       import unquote(__MODULE__)
       @before_compile unquote(__MODULE__)
@@ -28,9 +33,9 @@ defmodule ExConf.Config do
     quote do
       defmacro __using__(_opts) do
         unevald_local_defaults = Macro.escape(@config)
-
+        local_env_var = @env_var
         quote do
-          use ExConf.Config
+          use ExConf.Config, env_var: unquote(local_env_var)
           @defaults unquote(unevald_local_defaults)
         end
       end
@@ -44,7 +49,7 @@ defmodule ExConf.Config do
     quote do
       def__using__
       def env do
-        ExConf.Config.conf_module_for_env(Mix.env, __MODULE__)
+        ExConf.Config.conf_module_for_env(@env_var, __MODULE__)
       end
       unquote(config_ast)
       defdefaults(unquote(defaults))
@@ -79,19 +84,22 @@ defmodule ExConf.Config do
 
   @doc """
   Finds the Config Module for the given environment from the base module
-  name postfixed with the capitalized Mix.env
+  name postfixed with the capitalized @env_var
 
   If no Env specific Config module is defined, the based Config module is
   returned
   """
-  def conf_module_for_env(env, base_module) do
-    conf_mod = Module.concat(base_module, Utils.capitalize(to_string(env)))
+  def conf_module_for_env(env_var, base_module) do
+    env_module = Utils.capitalize(current_env_value(env_var))
+    conf_mod = Module.concat(base_module, env_module)
     if Code.ensure_loaded? conf_mod do
       conf_mod
     else
       base_module
     end
   end
+
+  defp current_env_value(env_var), do: System.get_env(env_var) || "dev"
 
 
   @doc """
