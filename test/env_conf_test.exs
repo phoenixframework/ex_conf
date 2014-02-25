@@ -22,7 +22,7 @@ defmodule EnvConfTest do
   end
 
   defmodule MyOtherApp.Config do
-    use ExConf.Config, env_var: "EXCONF_ENV"
+    use ExConf.Config
 
     config :router, ssl: true, domain: "other.dev"
   end

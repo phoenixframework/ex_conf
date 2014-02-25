@@ -12,7 +12,7 @@
 ```elixir
 
 defmodule MyApp.Config do
-  use ExConf.Config, env_var: "MIX_ENV"
+  use ExConf.Config
 
   config :router, ssl: true,
                   domain: "example.dev",

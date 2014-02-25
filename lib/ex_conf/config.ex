@@ -2,9 +2,11 @@ defmodule ExConf.Config do
   alias ExConf.Utils
 
   defmacro __using__(opts) do
-    env_var = Keyword.get(opts, :env_var) || raise ArgumentError, message: """
-    Missing required :env_var option
-    """
+    unless Enum.empty? opts do
+      env_var = Keyword.get(opts, :env_var) || raise ArgumentError, message: """
+      Missing required :env_var option
+      """
+    end
 
     quote do
       Module.register_attribute __MODULE__, :config, accumulate: true,
@@ -89,6 +91,7 @@ defmodule ExConf.Config do
   If no Env specific Config module is defined, the based Config module is
   returned
   """
+  def conf_module_for_env(nil, base_module), do: base_module
   def conf_module_for_env(env_var, base_module) do
     env_module = Utils.capitalize(current_env_value(env_var))
     conf_mod = Module.concat(base_module, env_module)
