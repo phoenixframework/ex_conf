@@ -40,7 +40,9 @@ true
 
 ## Environment Based Configuration
 
-First, establish a *base* configuration module that uses `ExConf.Config`.
+First, establish a *base* configuration module that uses `ExConf.Config` and
+provide an `env_var` option for System.get_env lookup at runtime of the current
+application environment.
 ```elixir
 defmodule MyApp.Config do
   use ExConf.Config, env_var: "MIX_ENV"
@@ -50,7 +52,7 @@ defmodule MyApp.Config do
 end
 ```
 
-Next, define "submodules" for each environmetn you need overrides or additional settings for.
+Next, define "submodules" for each environment you need overrides or additional settings for.
 The *base* config module will look for a "submodule" whos name is the value of
 `:env_var` fetched from System.get_env in capitalized form.
 This allows environment specific lookup at runtime via the `env/0` function on the base module.
