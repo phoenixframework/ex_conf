@@ -4,7 +4,7 @@
 
 
 ## Features
-- Configuration definitions are *evaluated at runtime*, but merged/defaulted at compile time, allowing runtime dependent lookups. (i.e. System.get_env)
+- Configuration definitions are *evaluated at runtime*, but merged/defaulted at compile time, allowing runtime dependent lookups. (i.e. `System.get_env`)
 - Configuration modules can extend other configurations for overrides and defaults
 - Evironment based lookup for settings based on provided `env_var`
 
@@ -41,7 +41,7 @@ true
 ## Environment Based Configuration
 
 First, establish a *base* configuration module that uses `ExConf.Config` and
-provide an `env_var` option for System.get_env lookup at runtime of the current
+provide an `env_var` option for `System.get_env` lookup at runtime of the current
 application environment.
 ```elixir
 defmodule MyApp.Config do
@@ -54,9 +54,9 @@ end
 
 Next, define "submodules" for each environment you need overrides or additional settings for.
 The *base* config module will look for a "submodule" whos name is the value of
-`:env_var` fetched from System.get_env in capitalized form.
+`:env_var` fetched from `System.get_env` in capitalized form.
 This allows environment specific lookup at runtime via the `env/0` function on the base module.
-If the Mix.env specific config module does not exist, it falls back to the base module.
+If the environment specific config module does not exist, it falls back to the base module.
 
 Here's what a Dev enviroment config module would look like for `System.get_env("MIX_ENV") == "dev"`:
 ```elixir
@@ -67,8 +67,8 @@ defmodule MyApp.Config.Dev do
   config :twitter, api_token: "ABC"
 end
 
-iex> Mix.env
-:dev
+iex> System.get_env("MIX_ENV")
+"dev"
 
 iex> MyApp.Config.env
 MyApp.Config.Dev
