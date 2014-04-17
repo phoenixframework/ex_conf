@@ -9,7 +9,7 @@ defmodule ExConf.Mixfile do
   end
 
   def application do
-    [mod: { ExConf, [] }]
+    []
   end
 
   defp deps do
