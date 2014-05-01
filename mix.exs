@@ -1,11 +1,23 @@
+Code.ensure_loaded?(Hex) and Hex.start
+
 defmodule ExConf.Mixfile do
   use Mix.Project
 
   def project do
-    [ app: :ex_conf,
-      version: "0.0.1",
-      elixir: "~> 0.12.4 or ~> 0.13.0-dev",
-      deps: deps ]
+    [
+      app: :ex_conf,
+      version: "0.1.0",
+      elixir: "~> 0.13.0",
+      deps: deps,
+      package: [
+        contributors: ["Chris McCord"],
+        licenses: ["MIT"],
+        links: [github: "https://github.com/phoenixframework/ex_conf"]
+      ],
+      description: """
+      Simple Elixir Configuration Management
+      """
+     ]
   end
 
   def application do
