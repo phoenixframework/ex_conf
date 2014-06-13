@@ -2,7 +2,7 @@ defmodule ExConf.Utils do
 
   def capitalize(<<first, rest :: binary>>) do
     [first]
-    |> String.from_char_data!
+    |> to_string
     |> String.upcase
     |> Kernel.<>(rest)
   end
