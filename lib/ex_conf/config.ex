@@ -95,7 +95,7 @@ defmodule ExConf.Config do
   def conf_module_for_env(env_var, base_module) do
     env_module = Utils.capitalize(current_env_value(env_var))
     conf_mod = Module.concat(base_module, env_module)
-    if Code.ensure_loaded? conf_mod do
+    if Code.ensure_compiled? conf_mod do
       conf_mod
     else
       base_module
