@@ -1,6 +1,8 @@
 # ExConf
 > Simple Elixir Configuration Management
 
+## Deprecated
+ExConf has been replaced by [Mix Configuration](http://elixir-lang.org/docs/stable/mix/Mix.Config.html). See the Phoenix README for new [configuration instructions](https://github.com/phoenixframework/phoenix#configuration).
 
 
 ## Features
