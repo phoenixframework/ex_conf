@@ -12,7 +12,9 @@ defmodule ExConf.Mixfile do
       package: [
         contributors: ["Chris McCord"],
         licenses: ["MIT"],
-        links: [github: "https://github.com/phoenixframework/ex_conf"]
+        links: %{
+        "GitHub" => "https://github.com/phoenixframework/ex_conf"
+        }
       ],
       description: """
       Simple Elixir Configuration Management
